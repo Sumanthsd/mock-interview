@@ -1,11 +1,14 @@
 import { neon } from "@neondatabase/serverless";
 
-const sql = neon(process.env.DATABASE_URL);
-
 export default async function handler(req, res) {
   if (req.method !== "GET") return res.status(405).json({ error: "Method not allowed" });
 
   try {
+    if (!process.env.DATABASE_URL) {
+      return res.status(503).json({ error: "DATABASE_URL is not configured for this deployment" });
+    }
+
+    const sql = neon(process.env.DATABASE_URL);
     // Read the existing table without assuming optional column names beyond
     // the columns used by the submit endpoint. This preserves compatibility
     // with the user's existing Neon schema.

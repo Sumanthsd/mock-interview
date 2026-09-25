@@ -18,9 +18,15 @@ export async function submitAttempt(payload) {
 
 export async function getAdminAttempts() {
   const response = await fetch(`${API}/api/attempts`);
-  const data = await response.json().catch(() => ({}));
+  const responseText = await response.text();
+  let data = {};
+  try {
+    data = responseText ? JSON.parse(responseText) : {};
+  } catch {
+    data = { detail: responseText.slice(0, 200) };
+  }
   if (!response.ok) {
-    throw new Error([data.error, data.detail].filter(Boolean).join(": ") || "Failed to fetch interview attempts");
+    throw new Error([data.error, data.detail, `HTTP ${response.status}`].filter(Boolean).join(": ") || "Failed to fetch interview attempts");
   }
   return Array.isArray(data) ? data : [];
 }

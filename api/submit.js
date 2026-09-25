@@ -1,7 +1,5 @@
 import { neon } from "@neondatabase/serverless";
 
-const sql = neon(process.env.DATABASE_URL);
-
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({
@@ -10,6 +8,15 @@ export default async function handler(req, res) {
   }
 
   try {
+    if (!process.env.DATABASE_URL) {
+      return res.status(503).json({
+        ok: false,
+        shared: false,
+        error: "DATABASE_URL is not configured for this deployment"
+      });
+    }
+
+    const sql = neon(process.env.DATABASE_URL);
     const payload = req.body;
 
     if (!payload) {
