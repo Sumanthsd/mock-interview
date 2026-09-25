@@ -16,11 +16,10 @@ export async function submitAttempt(payload) {
 }
 
 export async function getAdminAttempts() {
-  try {
-    const response = await fetch(`${API}/api/attempts`);
-    if (!response.ok) throw new Error("Fetch failed");
-    return await response.json();
-  } catch {
-    return [];
+  const response = await fetch(`${API}/api/attempts`);
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    throw new Error(data.error || "Failed to fetch interview attempts");
   }
+  return Array.isArray(data) ? data : [];
 }

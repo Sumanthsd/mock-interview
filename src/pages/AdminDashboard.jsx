@@ -25,7 +25,11 @@ export default function AdminDashboard({ onBack }) {
 
       setLoggedIn(true);
       setMessage("Signed in successfully.");
-      setAttempts(await getAdminAttempts());
+      try {
+        setAttempts(await getAdminAttempts());
+      } catch (error) {
+        setMessage(`Signed in, but attempts could not be loaded: ${error.message}`);
+      }
     } catch (error) {
       setLoggedIn(false);
       setMessage(error.message || "Unable to sign in");
