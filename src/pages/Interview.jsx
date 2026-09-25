@@ -90,7 +90,9 @@ export default function Interview({
     // Save to Neon through Vercel API
     const sharedResult = await submitAttempt(payload);
 
-    console.log("Shared Neon submission:", sharedResult);
+    if (!sharedResult?.ok) {
+      console.warn("Interview was completed locally, but Neon submission failed.");
+    }
 
     // Finish the interview
     onFinish(answers);

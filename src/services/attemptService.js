@@ -7,8 +7,9 @@ export async function submitAttempt(payload) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
     });
-    if (!response.ok) throw new Error("Submit failed");
-    return await response.json();
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || "Submit failed");
+    return data;
   } catch (error) {
     console.warn("Shared Neon submission unavailable:", error.message);
     return null;
@@ -19,7 +20,7 @@ export async function getAdminAttempts() {
   const response = await fetch(`${API}/api/attempts`);
   const data = await response.json().catch(() => ({}));
   if (!response.ok) {
-    throw new Error(data.error || "Failed to fetch interview attempts");
+    throw new Error([data.error, data.detail].filter(Boolean).join(": ") || "Failed to fetch interview attempts");
   }
   return Array.isArray(data) ? data : [];
 }
