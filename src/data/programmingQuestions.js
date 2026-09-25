@@ -1,0 +1,7 @@
+export const programmingQuestions = [
+  { id:"JAVA001", type:"mcq", difficulty:"easy", question:"Which is a primitive type in Java?", options:["Integer","String","int","ArrayList"], answer:2, explanation:"int is a Java primitive type; Integer is its wrapper class." },
+  { id:"JAVA002", type:"mcq", difficulty:"medium", question:"Which collection does not allow duplicate elements?", options:["List","Set","Queue","ArrayList"], answer:1, explanation:"The Set contract does not permit duplicate elements." },
+  { id:"JAVA003", type:"mcq", difficulty:"medium", question:"What is method overloading?", options:["Same method signature in child class","Same method name with different parameter lists","Changing only return type","Deleting a method"], answer:1, explanation:"Overloading uses the same method name with different parameter lists." },
+  { id:"JAVA004", type:"written", difficulty:"medium", question:"Write a Java program to reverse a string without using a built-in reverse method.", options:[], answer:null, explanation:"A common solution iterates from the last character to the first and builds the result." },
+  { id:"JAVA005", type:"written", difficulty:"medium", question:"Explain the difference between int and Integer in Java.", options:[], answer:null, explanation:"int is primitive; Integer is the wrapper class and can represent null." }
+];

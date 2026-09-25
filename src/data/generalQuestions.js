@@ -1,0 +1,6 @@
+export const generalQuestions = [
+  { id:"GEN001", type:"mcq", difficulty:"easy", question:"What is the purpose of CI in a software project?", options:["Automatically validate changes through a repeatable pipeline","Only deploy to production","Replace developers","Only run UI tests"], answer:0, explanation:"Continuous Integration validates changes frequently through automated builds/tests and feedback." },
+  { id:"GEN002", type:"mcq", difficulty:"medium", question:"What is a test case?", options:["A production server","A documented set of conditions, actions and expected results","A source code compiler","A browser extension"], answer:1, explanation:"A test case defines how a particular behavior is verified." },
+  { id:"GEN003", type:"mcq", difficulty:"medium", question:"Why should test data be controlled?", options:["To make tests dependent on random data","To improve repeatability and reduce false failures","To remove assertions","To slow tests"], answer:1, explanation:"Controlled data improves repeatability and makes failures easier to diagnose." },
+  { id:"GEN004", type:"written", difficulty:"medium", question:"Describe how you would decide which manual tests should be automated first.", options:[], answer:null, explanation:"Consider repeatability, business criticality, regression frequency, stability, data setup cost and automation ROI." }
+];

@@ -1,0 +1,6 @@
+export const apiQuestions = [
+  { id:"API001", type:"mcq", difficulty:"easy", question:"What does HTTP 200 generally indicate?", options:["Successful request","Unauthorized","Not found","Server error"], answer:0, explanation:"HTTP 200 indicates a successful request." },
+  { id:"API002", type:"mcq", difficulty:"easy", question:"Which HTTP method is commonly used to create a resource?", options:["GET","POST","DELETE","HEAD"], answer:1, explanation:"POST is commonly used to submit data and create a resource." },
+  { id:"API003", type:"mcq", difficulty:"medium", question:"What should an API test validate besides status code?", options:["Only response time","Response body, headers, schema/business rules as applicable","Only URL","Only server name"], answer:1, explanation:"Status alone is insufficient; content and business expectations should also be validated." },
+  { id:"API004", type:"written", difficulty:"medium", question:"Explain how you would automate a REST API end-to-end test.", options:[], answer:null, explanation:"Discuss request setup, authentication, data preparation, request execution, status/body/schema assertions, cleanup and reporting." }
+];
