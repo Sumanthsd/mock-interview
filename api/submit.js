@@ -1,14 +1,94 @@
-export default async function handler(req, res) {
-  if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+import { neon } from "@neondatabase/serverless";
 
-  // TODO: Insert payload into your Neon PostgreSQL table.
-  // Keep DATABASE_URL server-side only.
-  const payload = req.body;
-  if (!payload?.candidate || !payload?.score) {
-    return res.status(400).json({ error: "Invalid attempt payload" });
+const sql = neon(process.env.DATABASE_URL);
+
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({
+      error: "Method not allowed"
+    });
   }
 
-  // This starter endpoint acknowledges the request.
-  // Replace with your Neon INSERT once your schema is finalized.
-  return res.status(200).json({ ok: true, shared: true });
+  try {
+    const payload = req.body;
+
+    if (!payload) {
+      return res.status(400).json({
+        error: "Request body is missing"
+      });
+    }
+
+    const {
+      candidate,
+      interviewType,
+      section,
+      mode,
+      difficulty,
+      score,
+      correct,
+      total,
+      failed,
+      durationSeconds,
+      timeUp,
+      failedQuestions,
+      answers
+    } = payload;
+
+    if (!candidate) {
+      return res.status(400).json({
+        error: "Candidate name is required"
+      });
+    }
+
+    const result = await sql`
+      INSERT INTO interview_attempts (
+        candidate_name,
+        interview_type,
+        section,
+        mode,
+        difficulty,
+        score,
+        correct,
+        total,
+        failed,
+        duration_seconds,
+        time_up,
+        failed_questions,
+        answers
+      )
+      VALUES (
+               ${candidate},
+               ${interviewType || ""},
+               ${section || ""},
+               ${mode || ""},
+               ${difficulty || "Medium"},
+               ${Number(score) || 0},
+               ${Number(correct) || 0},
+               ${Number(total) || 0},
+               ${Number(failed) || 0},
+               ${Number(durationSeconds) || 0},
+               ${Boolean(timeUp)},
+               ${JSON.stringify(failedQuestions || [])}::jsonb,
+               ${JSON.stringify(answers || [])}::jsonb
+             )
+        RETURNING id, created_at
+    `;
+
+    console.log("Interview attempt saved:", result[0]);
+
+    return res.status(200).json({
+      ok: true,
+      shared: true,
+      attempt: result[0]
+    });
+
+  } catch (error) {
+    console.error("SUBMIT ERROR:", error);
+
+    return res.status(500).json({
+      ok: false,
+      shared: false,
+      error: "Failed to save interview attempt"
+    });
+  }
 }
