@@ -9,11 +9,27 @@ export default function AdminDashboard({ onBack }) {
   const [message, setMessage] = useState("");
 
   const login = async () => {
-    // Production implementation should call /api/admin-login.
-    // This UI deliberately does not hard-code admin credentials.
-    setLoggedIn(true);
-    setMessage("Demo dashboard mode. Connect /api/admin-login to your Neon-backed authentication.");
-    setAttempts(await getAdminAttempts());
+    setMessage("");
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || ""}/api/admin-login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok || !data.ok) {
+        throw new Error(data.error || "Invalid admin credentials");
+      }
+
+      setLoggedIn(true);
+      setMessage("Signed in successfully.");
+      setAttempts(await getAdminAttempts());
+    } catch (error) {
+      setLoggedIn(false);
+      setMessage(error.message || "Unable to sign in");
+    }
   };
 
   if (!loggedIn) return (

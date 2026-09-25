@@ -58,7 +58,7 @@ export default function Interview({
       candidate: candidate,
 
       interviewType: config?.testType || "",
-      section: config?.section || "",
+      section: config?.sections?.join(",") || "",
       mode: config?.mode || "",
       difficulty: config?.difficulty || "Medium",
 
