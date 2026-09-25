@@ -40,7 +40,7 @@ export default async function handler(req, res) {
   } catch (error) {
     console.error("ATTEMPTS ERROR:", error);
     return res.status(500).json({
-      error: "Failed to fetch interview attempts",
+      error: "Failed to Fetch Interview Attempts",
       detail: error.message
     });
   }

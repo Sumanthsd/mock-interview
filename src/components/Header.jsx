@@ -6,7 +6,7 @@ export default function Header({ candidate, onHome, onAdmin }) {
       <div className="brand" onClick={onHome}>
         <div className="brand-mark">QA</div>
         <div>
-          <strong>QA Mock Interview</strong>
+          <strong>Mock Interview</strong>
           <small>Manual • Automation • Programming</small>
         </div>
       </div>

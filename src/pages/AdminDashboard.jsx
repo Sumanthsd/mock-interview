@@ -20,11 +20,11 @@ export default function AdminDashboard({ onBack }) {
       const data = await response.json().catch(() => ({}));
 
       if (!response.ok || !data.ok) {
-        throw new Error(data.error || "Invalid admin credentials");
+        throw new Error(data.error || "Invalid Admin Credentials");
       }
 
       setLoggedIn(true);
-      setMessage("Signed in successfully.");
+      setMessage("Signed in Successfully.");
       try {
         setAttempts(await getAdminAttempts());
       } catch (error) {

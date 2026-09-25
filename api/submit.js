@@ -3,7 +3,7 @@ import { neon } from "@neondatabase/serverless";
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({
-      error: "Method not allowed"
+      error: "Method Not Allowed"
     });
   }
 
@@ -43,7 +43,7 @@ export default async function handler(req, res) {
 
     if (!candidate) {
       return res.status(400).json({
-        error: "Candidate name is required"
+        error: "Candidate Name is Required"
       });
     }
 
@@ -81,7 +81,7 @@ export default async function handler(req, res) {
         RETURNING id, created_at
     `;
 
-    console.log("Interview attempt saved:", result[0]);
+    console.log("Interview Attempt Saved:", result[0]);
 
     return res.status(200).json({
       ok: true,
@@ -95,7 +95,7 @@ export default async function handler(req, res) {
     return res.status(500).json({
       ok: false,
       shared: false,
-      error: "Failed to save interview attempt"
+      error: "Failed to save Interview Attempt"
     });
   }
 }

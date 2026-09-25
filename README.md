@@ -1,4 +1,4 @@
-# QA Automation Mock Interview
+# Automation Mock Interview
 
 A maintainable React/Vite mock-interview application with separated pages, components, question banks, services, utilities, and Vercel API endpoints.
 

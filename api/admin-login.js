@@ -5,5 +5,5 @@ export default async function handler(req, res) {
   if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
     return res.status(200).json({ ok: true });
   }
-  return res.status(401).json({ ok: false, error: "Invalid credentials" });
+  return res.status(401).json({ ok: false, error: "Invalid Credentials" });
 }

@@ -9,7 +9,7 @@ export default function RecentAttempts({ candidate }) {
         <div><h3>Recent Attempts</h3><p>Attempts saved on this browser.</p></div>
       </div>
       {attempts.length === 0 ? (
-        <div className="empty">No previous attempts for this candidate.</div>
+        <div className="empty">No Previous Attempts for this Candidate.</div>
       ) : (
         <div className="attempt-list">
           {attempts.slice(0, 8).map((a) => (
